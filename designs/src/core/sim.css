@@ -1,0 +1,67 @@
+/* Live project previews. Designs theme these through the --sim-* variables. */
+.sim {
+  --sim-bg: #fff; --sim-fg: #141414; --sim-line: rgba(20, 20, 20, 0.16); --sim-soft: rgba(20, 20, 20, 0.05);
+  --sim-accent: #141414; --sim-accent-fg: #fff; --sim-radius: 10px; --sim-display: inherit;
+  display: grid; gap: 14px; padding: 18px; border: 1px solid var(--sim-line); border-radius: var(--sim-radius);
+  background: var(--sim-bg); color: var(--sim-fg); font-size: 14px; line-height: 1.45;
+}
+.sim-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; padding-bottom: 12px; border-bottom: 1px solid var(--sim-line); }
+.sim-head > div { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.sim-title { font-family: var(--sim-display); font-weight: 700; }
+.sim-sub, .sim-hint { font-size: 12.5px; opacity: 0.78; }
+.sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.sim-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.sim-stack { display: grid; gap: 8px; }
+.sim-opt {
+  font: inherit; color: inherit; text-align: start; cursor: pointer; display: grid; gap: 3px;
+  padding: 12px 14px; border-radius: calc(var(--sim-radius) - 2px); border: 1px solid var(--sim-line); background: var(--sim-soft);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, translate 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sim-opt span { font-size: 12.5px; opacity: 0.8; }
+.sim-opt:hover { border-color: var(--sim-accent); }
+.sim-opt[aria-pressed="true"] { background: var(--sim-accent); color: var(--sim-accent-fg); border-color: var(--sim-accent); }
+.sim-opt--pill { border-radius: 999px; padding: 8px 14px; }
+.sim-layer { grid-template-columns: minmax(150px, 220px) 1fr; align-items: baseline; gap: 12px; }
+.sim.has-active .sim-layer[aria-pressed="false"] { opacity: 0.45; }
+.sim-layer[aria-pressed="true"] { translate: 6px 0; }
+.sim-out { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px; border-radius: calc(var(--sim-radius) - 2px); border: 1px solid var(--sim-line); }
+.sim-out > div { display: grid; gap: 4px; }
+.sim-out span { font-size: 13px; opacity: 0.85; }
+.sim-tag { font-style: normal; font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--sim-accent); color: var(--sim-accent-fg); white-space: nowrap; }
+.sim-card { padding: 14px; border-radius: calc(var(--sim-radius) - 2px); border: 1px solid var(--sim-line); }
+.sim-card p { margin: 6px 0 0; font-size: 13px; opacity: 0.85; }
+.sim-flow { counter-reset: f; }
+.sim-query { display: grid; gap: 10px; padding: 14px; border-radius: calc(var(--sim-radius) - 2px); border: 1px solid var(--sim-line); }
+.sim-query-line span { opacity: 0.7; }
+.sim-chip { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--sim-soft); border: 1px solid var(--sim-line); }
+@media (max-width: 560px) { .sim-layer { grid-template-columns: 1fr; } .sim-out { flex-direction: column; align-items: flex-start; } }
+
+/* Jeddah Food Fest dashboard keeps its own orange identity (Rana's project) */
+.ff { --ff-bg: #FFF7ED; --ff-fg: #1C1917; --ff-side: #FFEDD5; --ff-line: #FDBA74; --ff-card: rgba(255, 255, 255, 0.9); --ff-accent: #EA580C; --ff-deep: #9A3412;
+  border-radius: 12px; overflow: hidden; border: 1px solid var(--ff-line); background: var(--ff-bg); color: var(--ff-fg); font-size: 14px; transition: background-color 0.35s ease, color 0.35s ease; }
+.ff.is-dark { --ff-bg: #1C1917; --ff-fg: #FFF7ED; --ff-side: #292524; --ff-line: #7C2D12; --ff-card: #292524; --ff-deep: #FDBA74; }
+.ff-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 14px; background: var(--ff-accent); color: #fff; font-weight: 700; font-size: 13px; }
+.ff-bar-title { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ff-pill { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.22); }
+.ff-bar-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.ff-bar-actions button { font: inherit; font-size: 11.5px; cursor: pointer; padding: 5px 10px; border-radius: 8px; border: 0; background: #fff; color: var(--ff-accent); }
+.ff-bar-actions button + button { background: rgba(0, 0, 0, 0.22); color: #fff; }
+.ff-body { display: grid; grid-template-columns: minmax(130px, 26%) 1fr; min-height: 250px; font-family: "Readex Pro", "Noto Kufi Arabic", "Tajawal", system-ui, sans-serif; }
+.ff.no-side .ff-body { grid-template-columns: 1fr; }
+.ff.no-side .ff-side { display: none; }
+.ff-side { display: grid; align-content: start; gap: 6px; padding: 12px; background: var(--ff-side); border-inline-end: 1px solid var(--ff-line); }
+.ff-side-title { font-weight: 700; color: var(--ff-deep); margin-bottom: 4px; font-size: 13px; }
+.ff-side button { font: inherit; font-size: 13px; text-align: start; cursor: pointer; padding: 7px 10px; border-radius: 8px; border: 0; background: transparent; color: inherit; }
+.ff-side button:hover { background: rgba(234, 88, 12, 0.14); }
+.ff-side button[aria-current="true"] { background: var(--ff-accent); color: #fff; font-weight: 700; }
+.ff-main { display: grid; gap: 12px; align-content: start; padding: 16px; }
+.ff-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: flex-start; }
+.ff-kicker { font-size: 12px; opacity: 0.75; }
+.ff-h { font-weight: 700; font-size: 16px; color: var(--ff-accent); }
+.ff-chip { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--ff-line); color: var(--ff-accent); }
+.ff-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+.ff-stats div { display: grid; gap: 2px; padding: 10px 6px; border-radius: 10px; background: var(--ff-card); border: 1px solid var(--ff-line); }
+.ff-stats span { font-size: 11.5px; opacity: 0.75; }
+.ff-stats b { color: var(--ff-accent); font-size: 13.5px; }
+.ff-status { margin: 0; padding: 10px; border-radius: 10px; font-size: 13px; border: 1px solid var(--ff-line); background: color-mix(in srgb, var(--ff-side) 70%, transparent); }
+@media (max-width: 560px) { .ff-body { grid-template-columns: 1fr; } .ff-side { grid-auto-flow: column; overflow-x: auto; border-inline-end: 0; border-bottom: 1px solid var(--ff-line); } .ff-side-title { display: none; } .ff-stats { grid-template-columns: 1fr; } }

@@ -1,0 +1,137 @@
+/* Concept illustrations for the six projects (see covers.js). Theme with --cv-* */
+.cv {
+  --cv-paper: #FFFFFF; --cv-screen: #FFFFFF; --cv-line: #141414; --cv-ink: #141414; --cv-mute: rgba(20, 20, 20, 0.5);
+  --cv-soft: rgba(20, 20, 20, 0.07); --cv-street: rgba(20, 20, 20, 0.08); --cv-a: #D9432F; --cv-a2: #F6D3CA; --cv-b: #2F5BFF; --cv-b2: #D5DEFF;
+  --cv-gold: #F2C14E; --cv-ff: #EA580C; --cv-ff2: #FFEDD5; --cv-ff3: #FDBA74; --cv-font: system-ui, sans-serif; --cv-ar: "Noto Kufi Arabic", Tahoma, sans-serif;
+  --cv-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: block; width: 100%; height: auto; overflow: visible;
+}
+.cv text { font: 600 11px/1 var(--cv-font); fill: var(--cv-ink); letter-spacing: 0.01em; }
+.cv text[lang="ar"] { font-family: var(--cv-ar); }
+.cv .cv-small { font-size: 9.5px; fill: var(--cv-mute); }
+.cv .ln, .cv .cv-rail { fill: none; stroke: var(--cv-line); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.cv .cv-paper { fill: var(--cv-paper); }
+.cv * { transform-box: fill-box; }
+.cv:not(.is-live) * { animation-play-state: paused !important; }
+
+/* 01 Food Fest */
+.cv .cv-screen { fill: var(--cv-screen); stroke: var(--cv-line); stroke-width: 1.4; }
+.cv .cv-ffbar, .cv .cv-ffon, .cv .cv-bar { fill: var(--cv-ff); }
+.cv .cv-ffside { fill: var(--cv-ff2); }
+.cv .cv-ffoff { fill: var(--cv-ff3); opacity: 0.7; }
+.cv .cv-dotw { fill: #fff; opacity: 0.85; }
+.cv .cv-onff { fill: #fff; font-size: 10px; }
+.cv .cv-cards rect:not(.cv-ffon):not(.cv-ffoff) { fill: var(--cv-screen); stroke: var(--cv-ff3); stroke-width: 1.2; }
+.cv .cv-base { stroke: var(--cv-line); stroke-width: 1.2; }
+.cv .cv-bar { transform-origin: 50% 100%; }
+.cv .cv-bar:nth-child(odd) { opacity: 0.75; }
+.cv .cv-medal circle { fill: var(--cv-gold); stroke: var(--cv-line); stroke-width: 1.4; }
+.cv .cv-ribbon { fill: var(--cv-ff); stroke: var(--cv-line); stroke-width: 1.2; stroke-linejoin: round; }
+.cv .cv-medal-t { font-size: 12px; font-weight: 800; }
+.cv .cv-medal { transform-origin: 50% 0%; }
+.cv.is-play .cv-bar { animation: cvGrow 1s var(--cv-ease) both; animation-delay: calc(var(--i) * 70ms); }
+.cv.is-play .cv-medal { animation: cvSwing 2.6s ease-in-out 0.6s infinite alternate; }
+.cv.is-play .cv-cards { animation: cvFade 0.6s var(--cv-ease) both; }
+@keyframes cvGrow { from { transform: scaleY(0); } }
+@keyframes cvSwing { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+@keyframes cvFade { from { opacity: 0; transform: translateY(6px); } }
+
+/* 02 Tamkeen */
+.cv .cv-streets path { fill: none; stroke: var(--cv-street); stroke-width: 16; }
+.cv .cv-blocks rect { fill: var(--cv-soft); stroke: var(--cv-line); stroke-width: 1; stroke-opacity: 0.35; }
+.cv .cv-trees circle { fill: var(--cv-b2); stroke: var(--cv-line); stroke-width: 1; stroke-opacity: 0.4; }
+.cv .cv-place { fill: var(--cv-paper); stroke: var(--cv-line); stroke-width: 1.4; }
+.cv .cv-place-a { fill: var(--cv-a2); }
+.cv .cv-route-shadow { fill: none; stroke: var(--cv-line); stroke-opacity: 0.12; stroke-width: 7; stroke-linejoin: round; }
+.cv .cv-route { fill: none; stroke: var(--cv-a); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.cv .cv-here { fill: var(--cv-a); }
+.cv .cv-here-ring { fill: none; stroke: var(--cv-a); stroke-width: 2; transform-origin: center; }
+.cv .cv-pin path { fill: var(--cv-a); stroke: var(--cv-line); stroke-width: 1.2; }
+.cv .cv-pin-dot { fill: var(--cv-paper); }
+.cv .cv-pin { transform-origin: 50% 100%; }
+.cv .cv-north path { fill: var(--cv-line); }
+.cv.is-play .cv-route { animation: cvDraw 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both; }
+.cv.is-play .cv-pin { animation: cvDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.8s both; }
+.cv.is-play .cv-here-ring { animation: cvPulse 1.8s ease-out infinite; }
+.cv.is-play .cv-trees circle { animation: cvPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: calc(var(--i) * 60ms); }
+@keyframes cvDraw { from { stroke-dashoffset: 1; } }
+@keyframes cvDrop { from { opacity: 0; transform: translateY(-22px) scale(0.6); } }
+@keyframes cvPulse { from { transform: scale(1); opacity: 0.9; } to { transform: scale(3.4); opacity: 0; } }
+@keyframes cvPop { from { transform: scale(0); } }
+
+/* 03 A-Closet */
+.cv .cv-rail { stroke-width: 3; }
+.cv .cv-railend { fill: var(--cv-line); }
+.cv .cv-g1 { fill: var(--cv-a2); stroke: var(--cv-line); stroke-width: 1.3; stroke-linejoin: round; }
+.cv .cv-g2 { fill: var(--cv-b2); stroke: var(--cv-line); stroke-width: 1.3; stroke-linejoin: round; }
+.cv .cv-g3 { fill: var(--cv-soft); stroke: var(--cv-line); stroke-width: 1.3; stroke-linejoin: round; }
+.cv .cv-g4 { fill: var(--cv-a); stroke: var(--cv-line); stroke-width: 1.3; stroke-linejoin: round; }
+.cv .cv-hang { transform-box: view-box; }
+.cv .cv-flow { fill: none; stroke: var(--cv-a); stroke-width: 1.6; stroke-dasharray: 3 6; }
+.cv .cv-ai circle { fill: var(--cv-paper); stroke: var(--cv-line); stroke-width: 1.4; }
+.cv .cv-spark { fill: var(--cv-a); transform-origin: center; }
+.cv .cv-outfit > rect { fill: var(--cv-paper); stroke: var(--cv-line); stroke-width: 1.4; }
+.cv.is-play .cv-hang { animation: cvSway 3.2s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.6s); }
+.cv.is-play .cv-flow { animation: cvFlow 1.2s linear infinite; }
+.cv.is-play .cv-spark { animation: cvSpin 4s linear infinite; }
+.cv.is-play .cv-outfit { animation: cvFade 0.8s var(--cv-ease) 0.4s both; }
+@keyframes cvSway { from { transform: rotate(-3.5deg); } to { transform: rotate(3.5deg); } }
+@keyframes cvFlow { to { stroke-dashoffset: -18; } }
+@keyframes cvSpin { to { transform: rotate(360deg); } }
+
+/* 04 Fashion platform */
+.cv .cv-arc { fill: none; stroke: var(--cv-line); stroke-opacity: 0.25; stroke-width: 6; stroke-linecap: round; }
+.cv .cv-flowline { fill: none; stroke: var(--cv-a); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 2 12; }
+.cv .cv-node circle { fill: var(--cv-paper); stroke: var(--cv-line); stroke-width: 1.4; }
+.cv .cv-node:nth-of-type(2) circle { fill: var(--cv-a2); }
+.cv .cv-awning { fill: var(--cv-b); stroke: var(--cv-line); stroke-width: 1.2; }
+.cv .cv-bag { fill: var(--cv-a); stroke: var(--cv-line); stroke-width: 1.2; stroke-linejoin: round; }
+.cv .cv-thread { stroke: var(--cv-a); stroke-dasharray: 3 3; }
+.cv .cv-node { transform-origin: center; }
+.cv.is-play .cv-flowline { animation: cvFlow2 1.4s linear infinite; }
+.cv.is-play .cv-node { animation: cvPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; animation-delay: calc(var(--i) * 140ms); }
+@keyframes cvFlow2 { to { stroke-dashoffset: -28; } }
+
+/* 05 AI search */
+.cv .cv-search { fill: var(--cv-paper); stroke: var(--cv-line); stroke-width: 1.4; }
+.cv .cv-query { font-weight: 500; font-size: 11px; }
+.cv .cv-caret { fill: var(--cv-a); }
+.cv .cv-result > rect:first-child { fill: var(--cv-paper); stroke: var(--cv-line); stroke-width: 1.2; }
+.cv .cv-line1 { fill: var(--cv-ink); opacity: 0.8; }
+.cv .cv-line2 { fill: var(--cv-mute); opacity: 0.6; }
+.cv .cv-cal { fill: var(--cv-b2); stroke: var(--cv-line); stroke-width: 1; }
+.cv .cv-ok { fill: var(--cv-a2); stroke: var(--cv-a); stroke-width: 1.4; }
+.cv .cv-tick { fill: none; stroke: var(--cv-a); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+.cv .cv-chat > path { fill: var(--cv-b2); stroke: var(--cv-line); stroke-width: 1.3; }
+.cv .cv-bot { fill: var(--cv-paper); stroke: var(--cv-line); stroke-width: 1.2; }
+.cv .cv-eye { fill: var(--cv-ink); }
+.cv .cv-typing circle { fill: var(--cv-ink); opacity: 0.5; }
+.cv.is-play .cv-caret { animation: cvBlink 1s steps(1) infinite; }
+.cv.is-play .cv-result { animation: cvSlide 0.7s var(--cv-ease) both; animation-delay: calc(0.2s + var(--i) * 0.16s); }
+.cv.is-play .cv-tick { animation: cvDraw 0.5s ease-out both; animation-delay: calc(0.7s + var(--i) * 0.16s); }
+.cv.is-play .cv-typing circle { animation: cvDots 1.2s ease-in-out infinite; }
+.cv.is-play .cv-typing circle:nth-child(2) { animation-delay: 0.15s; }
+.cv.is-play .cv-typing circle:nth-child(3) { animation-delay: 0.3s; }
+@keyframes cvBlink { 50% { opacity: 0; } }
+@keyframes cvSlide { from { opacity: 0; transform: translateX(-14px); } }
+@keyframes cvDots { 0%, 100% { transform: translateY(0); opacity: 0.35; } 40% { transform: translateY(-3px); opacity: 1; } }
+
+/* 06 Layered architecture */
+.cv .cv-slab .f-top { fill: var(--sl); stroke: var(--cv-line); stroke-width: 1.2; stroke-linejoin: round; }
+.cv .cv-slab .f-left { fill: color-mix(in srgb, var(--sl) 78%, #000); stroke: var(--cv-line); stroke-width: 1.2; stroke-linejoin: round; }
+.cv .cv-slab .f-right { fill: color-mix(in srgb, var(--sl) 60%, #000); stroke: var(--cv-line); stroke-width: 1.2; stroke-linejoin: round; }
+.cv .cv-l1 { --sl: var(--cv-a2); } .cv .cv-l2 { --sl: var(--cv-b2); } .cv .cv-l3 { --sl: var(--cv-gold); }
+.cv .cv-slab-lines line { stroke: var(--cv-line); stroke-opacity: 0.35; stroke-width: 1.2; }
+.cv .cv-lead { stroke: var(--cv-line); stroke-width: 1; stroke-dasharray: 2 3; }
+.cv .cv-slab { transform-box: view-box; }
+.cv .cv-l1 { transform: translateY(40px); } .cv .cv-l3 { transform: translateY(-40px); }
+.cv.is-play .cv-slab { animation: cvExplode 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both; }
+.cv .cv-packets circle { fill: var(--cv-a); opacity: 0; }
+.cv.is-play .cv-packets circle { animation: cvPacket 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite; animation-delay: calc(1.4s + var(--i) * 0.8s); }
+@keyframes cvExplode { to { transform: translateY(0); } }
+@keyframes cvPacket { 0% { opacity: 0; transform: translateY(0); } 15% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; transform: translateY(120px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cv * { animation: none !important; }
+  .cv .cv-slab { transform: none; }
+}
