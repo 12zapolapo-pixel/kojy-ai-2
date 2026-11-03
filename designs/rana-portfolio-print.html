@@ -633,6 +633,9 @@ div:has(> .h2) { width: fit-content; max-width: 100%; }
 .ff-status { margin: 0; padding: 10px; border-radius: 10px; font-size: 13px; border: 1px solid var(--ff-line); background: color-mix(in srgb, var(--ff-side) 70%, transparent); }
 @media (max-width: 560px) { .ff-body { grid-template-columns: 1fr; } .ff-side { grid-auto-flow: column; overflow-x: auto; border-inline-end: 0; border-bottom: 1px solid var(--ff-line); } .ff-side-title { display: none; } .ff-stats { grid-template-columns: 1fr; } }
 
+/* A viewer that cannot hand files to visitors: hide the CV download instead of leaving a dead button */
+.no-file-saves [data-download-cv] { display: none !important; }
+
 /* Concept illustrations for the six projects (see covers.js). Theme with --cv-* */
 .cv {
   --cv-paper: #FFFFFF; --cv-screen: #FFFFFF; --cv-line: #141414; --cv-ink: #141414; --cv-mute: rgba(20, 20, 20, 0.5);
@@ -2390,8 +2393,15 @@ const RELATED = {
     });
   };
 
-  /* ---------- CV download (plain-text summary) ---------- */
-  RY.downloadCV = () => {
+  /* ---------- CV download (plain-text summary) ----------
+     The claude.ai artifact viewer never lets a page download on its own; there the file is offered
+     through the viewer's `downloads` capability, which asks the visitor to confirm. Elsewhere
+     (window.claude absent) the ordinary link download runs. */
+  const viewerSaves = () => (window.claude && typeof window.claude.use === 'function'
+    ? window.claude.use('downloads').catch(() => null) : null);
+  const savesChecked = viewerSaves();
+  if (savesChecked) savesChecked.then((dl) => { if (!dl) document.documentElement.classList.add('no-file-saves'); });
+  RY.downloadCV = async () => {
     const cv = CONTENT.cv;
     const lines = [
       'RANA YASER — CURRICULUM VITAE SUMMARY',
@@ -2404,10 +2414,18 @@ const RELATED = {
       ...CONTENT.clusters.map((c) => `• ${c.title}: ${SKILLS_DATA[c.key].map((s) => s.name).join(', ')}`), '',
       `Email: ${CONTENT.email}`, `LinkedIn: ${CONTENT.linkedin.href}`, `X: ${CONTENT.x.href}`
     ];
-    const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+    const text = lines.join('\n');
+    const filename = 'Rana_Yaser_CV_Summary.txt';
+    const dl = await viewerSaves();
+    if (dl) {
+      /* "declined" is the visitor's choice; any other refusal means saving isn't possible here */
+      try { await dl.save({ filename, data: text }); } catch (err) { if (!err || err.code !== 'declined') document.documentElement.classList.add('no-file-saves'); }
+      return;
+    }
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'Rana_Yaser_CV_Summary.txt';
+    a.href = url; a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };

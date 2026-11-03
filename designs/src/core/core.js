@@ -533,8 +533,15 @@
     });
   };
 
-  /* ---------- CV download (plain-text summary) ---------- */
-  RY.downloadCV = () => {
+  /* ---------- CV download (plain-text summary) ----------
+     The claude.ai artifact viewer never lets a page download on its own; there the file is offered
+     through the viewer's `downloads` capability, which asks the visitor to confirm. Elsewhere
+     (window.claude absent) the ordinary link download runs. */
+  const viewerSaves = () => (window.claude && typeof window.claude.use === 'function'
+    ? window.claude.use('downloads').catch(() => null) : null);
+  const savesChecked = viewerSaves();
+  if (savesChecked) savesChecked.then((dl) => { if (!dl) document.documentElement.classList.add('no-file-saves'); });
+  RY.downloadCV = async () => {
     const cv = CONTENT.cv;
     const lines = [
       'RANA YASER — CURRICULUM VITAE SUMMARY',
@@ -547,10 +554,18 @@
       ...CONTENT.clusters.map((c) => `• ${c.title}: ${SKILLS_DATA[c.key].map((s) => s.name).join(', ')}`), '',
       `Email: ${CONTENT.email}`, `LinkedIn: ${CONTENT.linkedin.href}`, `X: ${CONTENT.x.href}`
     ];
-    const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+    const text = lines.join('\n');
+    const filename = 'Rana_Yaser_CV_Summary.txt';
+    const dl = await viewerSaves();
+    if (dl) {
+      /* "declined" is the visitor's choice; any other refusal means saving isn't possible here */
+      try { await dl.save({ filename, data: text }); } catch (err) { if (!err || err.code !== 'declined') document.documentElement.classList.add('no-file-saves'); }
+      return;
+    }
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'Rana_Yaser_CV_Summary.txt';
+    a.href = url; a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };

@@ -65,3 +65,6 @@
 .ff-stats b { color: var(--ff-accent); font-size: 13.5px; }
 .ff-status { margin: 0; padding: 10px; border-radius: 10px; font-size: 13px; border: 1px solid var(--ff-line); background: color-mix(in srgb, var(--ff-side) 70%, transparent); }
 @media (max-width: 560px) { .ff-body { grid-template-columns: 1fr; } .ff-side { grid-auto-flow: column; overflow-x: auto; border-inline-end: 0; border-bottom: 1px solid var(--ff-line); } .ff-side-title { display: none; } .ff-stats { grid-template-columns: 1fr; } }
+
+/* A viewer that cannot hand files to visitors: hide the CV download instead of leaving a dead button */
+.no-file-saves [data-download-cv] { display: none !important; }
